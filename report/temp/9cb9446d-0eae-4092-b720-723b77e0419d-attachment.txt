@@ -1,0 +1,10 @@
+INFO     common.recordlog:sendrequests.py:41 接口名称：删除用户
+INFO     common.recordlog:sendrequests.py:42 接口请求地址：http://127.0.0.1:8787/dar/user/deleteUser
+INFO     common.recordlog:sendrequests.py:43 请求方法：POST
+INFO     common.recordlog:sendrequests.py:44 测试用例名称：无效删除用户·userid不存在
+INFO     common.recordlog:sendrequests.py:45 请求头：{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}
+INFO     common.recordlog:sendrequests.py:46 Cookies：None
+INFO     common.recordlog:sendrequests.py:52 请求参数：{'data': {'user_id': 1238393873922}}
+INFO     common.recordlog:sendrequests.py:27 接口的实际返回信息:{"msg":"删除失败，用户id不存在!","msg_code":9001}
+
+INFO     common.recordlog:assertions.py:41 预期结果:删除失败 包含实际结果：删除失败，用户id不存在!,断言成功

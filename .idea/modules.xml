@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/PythonProject3_接口自动化框架.iml" filepath="$PROJECT_DIR$/.idea/PythonProject3_接口自动化框架.iml" />
+      <module fileurl="file://F:/Download/pythonproject (1)/pythonproject/.idea/pythonproject.iml" filepath="F:/Download/pythonproject (1)/pythonproject/.idea/pythonproject.iml" />
+      <module fileurl="file://F:/Download/pythonproject/.idea/小浪接口.iml" filepath="F:/Download/pythonproject/.idea/小浪接口.iml" />
+    </modules>
+  </component>
+</project>

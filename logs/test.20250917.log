@@ -1,0 +1,5 @@
+INFO - 2025-09-17 22:05:03,633 - connection.py:22 -[connection:__init__] - 成功连接到MYSQL数据库
+INFO - 2025-09-17 22:09:52,407 - connection.py:22 -[connection:__init__] - 成功连接到MYSQL数据库
+        host:127.0.0.1
+        port:3306
+        db:sys

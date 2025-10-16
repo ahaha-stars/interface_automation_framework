@@ -1,0 +1,178 @@
+INFO - 2025-10-14 21:20:56,779 - conftest.py:15 -[conftest:fixture_test] - -----------接口测试开始--------------
+INFO - 2025-10-14 21:20:56,787 - sendrequests.py:41 -[sendrequests:run_main] - 接口名称：用户登录
+INFO - 2025-10-14 21:20:56,788 - sendrequests.py:42 -[sendrequests:run_main] - 接口请求地址：http://127.0.0.1:8787/dar/user/login
+INFO - 2025-10-14 21:20:56,789 - sendrequests.py:43 -[sendrequests:run_main] - 请求方法：post
+INFO - 2025-10-14 21:20:56,789 - sendrequests.py:44 -[sendrequests:run_main] - 测试用例名称：用户名和密码正确登录验证
+INFO - 2025-10-14 21:20:56,790 - sendrequests.py:45 -[sendrequests:run_main] - 请求头：{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8', 'token': '${get_extract_data(token)}'}
+INFO - 2025-10-14 21:20:56,791 - sendrequests.py:46 -[sendrequests:run_main] - Cookies：None
+INFO - 2025-10-14 21:20:56,791 - sendrequests.py:51 -[sendrequests:run_main] - 请求参数：{'data': {'user_name': 'test01', 'passwd': 'admin123'}}
+INFO - 2025-10-14 21:20:56,808 - sendrequests.py:26 -[sendrequests:send_request] - cookie:{'Cookie': {'access_token_cookie': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MDQ0ODA1NiwianRpIjoiMWJmM2RjMjktY2NlMy00NjE0LWJhYjEtYTI3MTlhMjIyZmEwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImV4YW1wbGVfdXNlciIsIm5iZiI6MTc2MDQ0ODA1NiwiZXhwIjoxNzYwNDQ4OTU2fQ.qpfZumFOrlmB4ca9-IDOt_SaIPfhS3QnbcsyQfESRPo'}}
+INFO - 2025-10-14 21:20:56,808 - sendrequests.py:27 -[sendrequests:send_request] - 接口的实际返回信息:{"error_code":null,"msg":"登录成功","msg_code":200,"orgId":"4140913758110176843","token":"9CAf8109CE4D4D38565EFaDa5D0B1","userId":"9299847808240705788"}
+
+INFO - 2025-10-14 21:20:56,809 - apiutil.py:185 -[apiutil:extract_data] - json提取到的数据为：{'token': '9CAf8109CE4D4D38565EFaDa5D0B1'}
+INFO - 2025-10-14 21:20:56,811 - assertions.py:67 -[assertions:equal_assert] - 相等断言成功：接口实际返回结果为：{'msg': '登录成功'},预期结果为:{'msg': '登录成功'}
+INFO - 2025-10-14 21:20:56,819 - sendrequests.py:41 -[sendrequests:run_main] - 接口名称：商品列表
+INFO - 2025-10-14 21:20:56,819 - sendrequests.py:42 -[sendrequests:run_main] - 接口请求地址：http://127.0.0.1:8787/coupApply/cms/goodsList
+INFO - 2025-10-14 21:20:56,820 - sendrequests.py:43 -[sendrequests:run_main] - 请求方法：Get
+INFO - 2025-10-14 21:20:56,821 - sendrequests.py:44 -[sendrequests:run_main] - 测试用例名称：获取商品列表
+INFO - 2025-10-14 21:20:56,821 - sendrequests.py:45 -[sendrequests:run_main] - 请求头：{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8', 'token': '${get_extract_data(cookie)}'}
+INFO - 2025-10-14 21:20:56,822 - sendrequests.py:46 -[sendrequests:run_main] - Cookies：None
+INFO - 2025-10-14 21:20:56,822 - sendrequests.py:57 -[sendrequests:run_main] - 请求参数：{'params': {'msgType': 'getHandsetListOfCust', 'page': 1, 'size': 20}}
+INFO - 2025-10-14 21:20:56,827 - sendrequests.py:27 -[sendrequests:send_request] - 接口的实际返回信息:{"api_info":"today:21 max:10000 all[90=21+33+36];expires:2030-12-31","cache":0,"error_code":"0000","goodsList":[{"goodsId":"18382788819","goods_count":"233","goods_image":"https://omsproductionimg.yangkeduo.com/images/2017-12-12/bcf848aa71c6389607ae7a84b70f1543.jpeg","goods_name":"【2件套】套装秋冬新款仿獭兔毛钉珠皮草毛毛短外套加厚大衣女装","original_price":"","unit_price":"￥99.00"},{"goodsId":"33809635011","goods_count":"521","goods_image":"https://omsproductionimg.yangkeduo.com/images/2017-12-12/176019babfdecffa1d9f98f40b7e99b4.jpeg","goods_name":"好奇小森林心钻装纸尿裤M22拉拉裤L18/XL14超薄透气裤型尿不湿 1件装","original_price":"","unit_price":"￥108.00"},{"goodsId":"56996760797","goods_count":"1181","goods_image":"https://omsproductionimg.yangkeduo.com/images/2017-12-12/efb5db42397550bffd3211ca6f197498.jpeg","goods_name":"冻干鸡小胸整块增肥营养发腮狗狗零食新手养猫零食幼猫零食100g","original_price":"","unit_price":"￥17.80"},{"goodsId":"82193785267","goods_count":"3000+","goods_image":"https://omsproductionimg.yangkeduo.com/images/2017-12-12/efb5db42397550bffd3211ca6f197498.jpeg","goods_name":"【自营】ISB伊珊娜意大利水果系列宠物犬猫沐浴露除臭香波护毛素","original_price":"","unit_price":"￥650.00"},{"goodsId":"74190550836","goods_count":"1000+","goods_image":"https://omsproductionimg.yangkeduo.com/images/2017-12-12/efb5db42397550bffd3211ca6f197498.jpeg","goods_name":"【新品零0CM嵌入式】海尔电冰箱410L家用法式四门多门官方正品","original_price":"","unit_price":"￥5746.00"}],"reason":"","request_id":"request_id","secache":"c98b29872e8a4b28859db207944ba817","secache_date":"2025-10-14 20:59:34","secache_time":1760446774000,"translate_language":"zh-CN"}
+
+INFO - 2025-10-14 21:20:56,828 - apiutil.py:143 -[apiutil:extract_data_list] - json提取到参数：{'goodsId': ['18382788819', '33809635011', '56996760797', '82193785267', '74190550836']}
+INFO - 2025-10-14 21:20:56,830 - assertions.py:41 -[assertions:contains_assert] - 预期结果:0000 包含实际结果：0000,断言成功
+INFO - 2025-10-14 21:20:56,841 - sendrequests.py:41 -[sendrequests:run_main] - 接口名称：商品详情
+INFO - 2025-10-14 21:20:56,841 - sendrequests.py:42 -[sendrequests:run_main] - 接口请求地址：http://127.0.0.1:8787/coupApply/cms/productDetail
+INFO - 2025-10-14 21:20:56,842 - sendrequests.py:43 -[sendrequests:run_main] - 请求方法：post
+INFO - 2025-10-14 21:20:56,842 - sendrequests.py:44 -[sendrequests:run_main] - 测试用例名称：获取商品详情
+INFO - 2025-10-14 21:20:56,842 - sendrequests.py:45 -[sendrequests:run_main] - 请求头：{'Content-Type': 'application/json;charset=UTF-8'}
+INFO - 2025-10-14 21:20:56,842 - sendrequests.py:46 -[sendrequests:run_main] - Cookies：None
+INFO - 2025-10-14 21:20:56,843 - sendrequests.py:54 -[sendrequests:run_main] - 请求参数：{'json': {'pro_id': '33809635011}', 'page': 1, 'size': 20}}
+INFO - 2025-10-14 21:20:56,850 - sendrequests.py:27 -[sendrequests:send_request] - 接口的实际返回信息:{"error":"不存在该商品","error_code":"4000","goodsId":"","item":{},"secache_date":"2025-10-14 21:20:56","translate_language":"zh-CN"}
+
+INFO - 2025-10-14 21:20:56,851 - assertions.py:41 -[assertions:contains_assert] - 预期结果:4000 包含实际结果：4000,断言成功
+INFO - 2025-10-14 21:20:57,198 - conftest.py:17 -[conftest:fixture_test] - -----------接口测试结束--------------
+INFO - 2025-10-14 21:30:15,938 - conftest.py:15 -[conftest:fixture_test] - -----------接口测试开始--------------
+INFO - 2025-10-14 21:30:15,941 - sendrequests.py:41 -[sendrequests:run_main] - 接口名称：用户登录
+INFO - 2025-10-14 21:30:15,941 - sendrequests.py:42 -[sendrequests:run_main] - 接口请求地址：http://127.0.0.1:8787/dar/user/login
+INFO - 2025-10-14 21:30:15,942 - sendrequests.py:43 -[sendrequests:run_main] - 请求方法：post
+INFO - 2025-10-14 21:30:15,942 - sendrequests.py:44 -[sendrequests:run_main] - 测试用例名称：用户名和密码正确登录验证
+INFO - 2025-10-14 21:30:15,943 - sendrequests.py:45 -[sendrequests:run_main] - 请求头：{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8', 'token': '${get_extract_data(token)}'}
+INFO - 2025-10-14 21:30:15,943 - sendrequests.py:46 -[sendrequests:run_main] - Cookies：None
+INFO - 2025-10-14 21:30:15,944 - sendrequests.py:51 -[sendrequests:run_main] - 请求参数：{'data': {'user_name': 'test01', 'passwd': 'admin123'}}
+INFO - 2025-10-14 21:30:15,958 - sendrequests.py:26 -[sendrequests:send_request] - cookie:{'Cookie': {'access_token_cookie': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MDQ0ODYxNSwianRpIjoiMTFjYzY4Y2UtZTRmNi00OGUwLTkxZTYtMDZhMjNiMGY5ZTE1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImV4YW1wbGVfdXNlciIsIm5iZiI6MTc2MDQ0ODYxNSwiZXhwIjoxNzYwNDQ5NTE1fQ.xbQx9o--N3r6NwcgqROt9t35egogEG2ucI3-wv8n9kk'}}
+INFO - 2025-10-14 21:30:15,958 - sendrequests.py:27 -[sendrequests:send_request] - 接口的实际返回信息:{"error_code":null,"msg":"登录成功","msg_code":200,"orgId":"6140913758128971280","token":"BdC3c8E5df00BBAAa1060ddD9B7fF","userId":"9299847808240705788"}
+
+INFO - 2025-10-14 21:30:15,959 - apiutil.py:185 -[apiutil:extract_data] - json提取到的数据为：{'token': 'BdC3c8E5df00BBAAa1060ddD9B7fF'}
+INFO - 2025-10-14 21:30:15,961 - assertions.py:67 -[assertions:equal_assert] - 相等断言成功：接口实际返回结果为：{'msg': '登录成功'},预期结果为:{'msg': '登录成功'}
+INFO - 2025-10-14 21:30:15,963 - conftest.py:17 -[conftest:fixture_test] - -----------接口测试结束--------------
+INFO - 2025-10-14 21:30:43,725 - conftest.py:15 -[conftest:fixture_test] - -----------接口测试开始--------------
+INFO - 2025-10-14 21:30:44,048 - conftest.py:17 -[conftest:fixture_test] - -----------接口测试结束--------------
+INFO - 2025-10-14 21:32:57,050 - conftest.py:15 -[conftest:fixture_test] - -----------接口测试开始--------------
+INFO - 2025-10-14 21:32:57,357 - conftest.py:17 -[conftest:fixture_test] - -----------接口测试结束--------------
+INFO - 2025-10-14 21:36:19,318 - sendrequests.py:41 -[sendrequests:run_main] - 接口名称：用户登录
+INFO - 2025-10-14 21:36:19,318 - sendrequests.py:42 -[sendrequests:run_main] - 接口请求地址：http://127.0.0.1:8787/dar/user/login
+INFO - 2025-10-14 21:36:19,319 - sendrequests.py:43 -[sendrequests:run_main] - 请求方法：post
+INFO - 2025-10-14 21:36:19,319 - sendrequests.py:44 -[sendrequests:run_main] - 测试用例名称：用户名和密码正确登录验证
+INFO - 2025-10-14 21:36:19,319 - sendrequests.py:45 -[sendrequests:run_main] - 请求头：{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8', 'token': '${get_extract_data(token)}'}
+INFO - 2025-10-14 21:36:19,319 - sendrequests.py:46 -[sendrequests:run_main] - Cookies：None
+INFO - 2025-10-14 21:36:19,319 - sendrequests.py:51 -[sendrequests:run_main] - 请求参数：{'data': {'user_name': 'test01', 'passwd': 'admin123'}}
+INFO - 2025-10-14 21:36:19,329 - sendrequests.py:26 -[sendrequests:send_request] - cookie:{'Cookie': {'access_token_cookie': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MDQ0ODk3OSwianRpIjoiMmFjZjg1YjUtNmUxNC00MmY1LTk4MmEtYjQyOGI5YzEwYjQyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImV4YW1wbGVfdXNlciIsIm5iZiI6MTc2MDQ0ODk3OSwiZXhwIjoxNzYwNDQ5ODc5fQ.GwhXyH2Ehz05YykkuHlXRKEbUyLTz0DZ3LPRKGbxTbk'}}
+INFO - 2025-10-14 21:36:19,329 - sendrequests.py:27 -[sendrequests:send_request] - 接口的实际返回信息:{"error_code":null,"msg":"登录成功","msg_code":200,"orgId":"4140913758110176843","token":"Ff165Fd1B2f7a1f48225Dd0beEa8e","userId":"9299847808240705788"}
+
+INFO - 2025-10-14 21:36:19,330 - apiutil.py:185 -[apiutil:extract_data] - json提取到的数据为：{'token': 'Ff165Fd1B2f7a1f48225Dd0beEa8e'}
+INFO - 2025-10-14 21:36:19,331 - assertions.py:67 -[assertions:equal_assert] - 相等断言成功：接口实际返回结果为：{'msg': '登录成功'},预期结果为:{'msg': '登录成功'}
+INFO - 2025-10-14 21:37:00,690 - sendrequests.py:41 -[sendrequests:run_main] - 接口名称：新增用户
+INFO - 2025-10-14 21:37:00,691 - sendrequests.py:42 -[sendrequests:run_main] - 接口请求地址：http://127.0.0.1:8787/dar/user/addUser
+INFO - 2025-10-14 21:37:00,692 - sendrequests.py:43 -[sendrequests:run_main] - 请求方法：POST
+INFO - 2025-10-14 21:37:00,692 - sendrequests.py:44 -[sendrequests:run_main] - 测试用例名称：正常新增用户
+INFO - 2025-10-14 21:37:00,692 - sendrequests.py:45 -[sendrequests:run_main] - 请求头：{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}
+INFO - 2025-10-14 21:37:00,693 - sendrequests.py:46 -[sendrequests:run_main] - Cookies：None
+INFO - 2025-10-14 21:37:00,693 - sendrequests.py:51 -[sendrequests:run_main] - 请求参数：{'data': {'username': 'testadduser', 'password': 'test6789890', 'role_id': 123456789, 'dates': '2023-12-31', 'phone': 13800000000, 'token': 'Ff165Fd1B2f7a1f48225Dd0beEa8e}'}}
+INFO - 2025-10-14 21:37:00,699 - sendrequests.py:27 -[sendrequests:send_request] - 接口的实际返回信息:{"msg":"新增失败，参数缺失或token失效","msg_code":9001}
+
+ERROR - 2025-10-14 21:37:00,700 - assertions.py:44 -[assertions:contains_assert] - 预期结果：新增成功，实际结果：新增失败，参数缺失或token失效,断言失败
+ERROR - 2025-10-14 21:37:00,700 - assertions.py:122 -[assertions:assert_result] - 测试失败：共有1处断言失败，请查看日志
+INFO - 2025-10-14 21:40:34,045 - sendrequests.py:41 -[sendrequests:run_main] - 接口名称：新增用户
+INFO - 2025-10-14 21:40:34,045 - sendrequests.py:42 -[sendrequests:run_main] - 接口请求地址：http://127.0.0.1:8787/dar/user/addUser
+INFO - 2025-10-14 21:40:34,046 - sendrequests.py:43 -[sendrequests:run_main] - 请求方法：POST
+INFO - 2025-10-14 21:40:34,047 - sendrequests.py:44 -[sendrequests:run_main] - 测试用例名称：正常新增用户
+INFO - 2025-10-14 21:40:34,047 - sendrequests.py:45 -[sendrequests:run_main] - 请求头：{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}
+INFO - 2025-10-14 21:40:34,047 - sendrequests.py:46 -[sendrequests:run_main] - Cookies：None
+INFO - 2025-10-14 21:40:34,048 - sendrequests.py:51 -[sendrequests:run_main] - 请求参数：{'data': {'username': 'testadduser', 'password': 'tset6789890', 'role_id': 123456789, 'dates': '2023-12-31', 'phone': 13800000000, 'token': 'Ff165Fd1B2f7a1f48225Dd0beEa8e}'}}
+INFO - 2025-10-14 21:40:34,054 - sendrequests.py:27 -[sendrequests:send_request] - 接口的实际返回信息:{"msg":"新增失败，参数缺失或token失效","msg_code":9001}
+
+ERROR - 2025-10-14 21:40:34,055 - assertions.py:44 -[assertions:contains_assert] - 预期结果：新增成功，实际结果：新增失败，参数缺失或token失效,断言失败
+ERROR - 2025-10-14 21:40:34,056 - assertions.py:122 -[assertions:assert_result] - 测试失败：共有1处断言失败，请查看日志
+INFO - 2025-10-14 21:41:50,546 - sendrequests.py:41 -[sendrequests:run_main] - 接口名称：用户登录
+INFO - 2025-10-14 21:41:50,547 - sendrequests.py:42 -[sendrequests:run_main] - 接口请求地址：http://127.0.0.1:8787/dar/user/login
+INFO - 2025-10-14 21:41:50,547 - sendrequests.py:43 -[sendrequests:run_main] - 请求方法：post
+INFO - 2025-10-14 21:41:50,547 - sendrequests.py:44 -[sendrequests:run_main] - 测试用例名称：用户名和密码正确登录验证
+INFO - 2025-10-14 21:41:50,547 - sendrequests.py:45 -[sendrequests:run_main] - 请求头：{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8', 'token': '${get_extract_data(token)}'}
+INFO - 2025-10-14 21:41:50,548 - sendrequests.py:46 -[sendrequests:run_main] - Cookies：None
+INFO - 2025-10-14 21:41:50,549 - sendrequests.py:51 -[sendrequests:run_main] - 请求参数：{'data': {'user_name': 'test01', 'passwd': 'admin123'}}
+INFO - 2025-10-14 21:41:50,557 - sendrequests.py:26 -[sendrequests:send_request] - cookie:{'Cookie': {'access_token_cookie': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MDQ0OTMxMCwianRpIjoiNTg0YzY0ZTYtYmMzZC00Yzg3LWFlMzMtYmQxNzM0YTU5M2ZlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImV4YW1wbGVfdXNlciIsIm5iZiI6MTc2MDQ0OTMxMCwiZXhwIjoxNzYwNDUwMjEwfQ.Fz84sE6EwahVor_VHVp_Ik1KOQXk75iCAvXARaUMeiw'}}
+INFO - 2025-10-14 21:41:50,557 - sendrequests.py:27 -[sendrequests:send_request] - 接口的实际返回信息:{"error_code":null,"msg":"登录成功","msg_code":200,"orgId":"4140913758110176843","token":"FB5C44fFDa313Dd80De7E2C1D23c1","userId":"9299847808240705788"}
+
+INFO - 2025-10-14 21:41:50,558 - apiutil.py:185 -[apiutil:extract_data] - json提取到的数据为：{'token': 'FB5C44fFDa313Dd80De7E2C1D23c1'}
+INFO - 2025-10-14 21:41:50,559 - assertions.py:67 -[assertions:equal_assert] - 相等断言成功：接口实际返回结果为：{'msg': '登录成功'},预期结果为:{'msg': '登录成功'}
+INFO - 2025-10-14 21:42:25,407 - sendrequests.py:41 -[sendrequests:run_main] - 接口名称：新增用户
+INFO - 2025-10-14 21:42:25,407 - sendrequests.py:42 -[sendrequests:run_main] - 接口请求地址：http://127.0.0.1:8787/dar/user/addUser
+INFO - 2025-10-14 21:42:25,408 - sendrequests.py:43 -[sendrequests:run_main] - 请求方法：POST
+INFO - 2025-10-14 21:42:25,408 - sendrequests.py:44 -[sendrequests:run_main] - 测试用例名称：正常新增用户
+INFO - 2025-10-14 21:42:25,409 - sendrequests.py:45 -[sendrequests:run_main] - 请求头：{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}
+INFO - 2025-10-14 21:42:25,409 - sendrequests.py:46 -[sendrequests:run_main] - Cookies：None
+INFO - 2025-10-14 21:42:25,409 - sendrequests.py:51 -[sendrequests:run_main] - 请求参数：{'data': {'username': 'testadduser', 'password': 'tset6789890', 'role_id': 123456789, 'dates': '2023-12-31', 'phone': 13800000000, 'token': 'FB5C44fFDa313Dd80De7E2C1D23c1}'}}
+INFO - 2025-10-14 21:42:25,416 - sendrequests.py:27 -[sendrequests:send_request] - 接口的实际返回信息:{"msg":"新增失败，参数缺失或token失效","msg_code":9001}
+
+ERROR - 2025-10-14 21:42:25,417 - assertions.py:44 -[assertions:contains_assert] - 预期结果：新增成功，实际结果：新增失败，参数缺失或token失效,断言失败
+ERROR - 2025-10-14 21:42:25,418 - assertions.py:122 -[assertions:assert_result] - 测试失败：共有1处断言失败，请查看日志
+INFO - 2025-10-14 21:53:40,612 - sendrequests.py:41 -[sendrequests:run_main] - 接口名称：新增用户
+INFO - 2025-10-14 21:53:40,613 - sendrequests.py:42 -[sendrequests:run_main] - 接口请求地址：http://127.0.0.1:8787/dar/user/addUser
+INFO - 2025-10-14 21:53:40,614 - sendrequests.py:43 -[sendrequests:run_main] - 请求方法：POST
+INFO - 2025-10-14 21:53:40,614 - sendrequests.py:44 -[sendrequests:run_main] - 测试用例名称：正常新增用户
+INFO - 2025-10-14 21:53:40,614 - sendrequests.py:45 -[sendrequests:run_main] - 请求头：{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}
+INFO - 2025-10-14 21:53:40,615 - sendrequests.py:46 -[sendrequests:run_main] - Cookies：None
+INFO - 2025-10-14 21:53:40,616 - sendrequests.py:51 -[sendrequests:run_main] - 请求参数：{'data': {'username': 'testadduser', 'password': 'tset6789890', 'role_id': 123456789, 'dates': '2023-12-31', 'phone': 13800000000, 'token': 'FB5C44fFDa313Dd80De7E2C1D23c1}'}}
+INFO - 2025-10-14 21:53:40,625 - sendrequests.py:27 -[sendrequests:send_request] - 接口的实际返回信息:{"msg":"新增失败，参数缺失或token失效","msg_code":9001}
+
+ERROR - 2025-10-14 21:53:40,626 - assertions.py:44 -[assertions:contains_assert] - 预期结果：新增成功，实际结果：新增失败，参数缺失或token失效,断言失败
+ERROR - 2025-10-14 21:53:40,627 - assertions.py:122 -[assertions:assert_result] - 测试失败：共有1处断言失败，请查看日志
+INFO - 2025-10-14 21:54:34,631 - sendrequests.py:41 -[sendrequests:run_main] - 接口名称：用户登录
+INFO - 2025-10-14 21:54:34,631 - sendrequests.py:42 -[sendrequests:run_main] - 接口请求地址：http://127.0.0.1:8787/dar/user/login
+INFO - 2025-10-14 21:54:34,631 - sendrequests.py:43 -[sendrequests:run_main] - 请求方法：post
+INFO - 2025-10-14 21:54:34,632 - sendrequests.py:44 -[sendrequests:run_main] - 测试用例名称：用户名和密码正确登录验证
+INFO - 2025-10-14 21:54:34,632 - sendrequests.py:45 -[sendrequests:run_main] - 请求头：{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8', 'token': '${get_extract_data(token)}'}
+INFO - 2025-10-14 21:54:34,632 - sendrequests.py:46 -[sendrequests:run_main] - Cookies：None
+INFO - 2025-10-14 21:54:34,632 - sendrequests.py:51 -[sendrequests:run_main] - 请求参数：{'data': {'user_name': 'test01', 'passwd': 'admin123'}}
+INFO - 2025-10-14 21:54:34,640 - sendrequests.py:26 -[sendrequests:send_request] - cookie:{'Cookie': {'access_token_cookie': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MDQ1MDA3NCwianRpIjoiNGEzMGFjOTQtMTYwZS00MjEwLWJiYWYtYWMzYWI5MjQwNDVhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImV4YW1wbGVfdXNlciIsIm5iZiI6MTc2MDQ1MDA3NCwiZXhwIjoxNzYwNDUwOTc0fQ.Xnq8-VFY_RPXCcB00ZUp0zez2kepK_x8xyfojSEeKF8'}}
+INFO - 2025-10-14 21:54:34,641 - sendrequests.py:27 -[sendrequests:send_request] - 接口的实际返回信息:{"error_code":null,"msg":"登录成功","msg_code":200,"orgId":"6140913758128971280","token":"bAE1C072dA006deF333bbdFDce35a","userId":"9299847808240705788"}
+
+INFO - 2025-10-14 21:54:34,641 - apiutil.py:185 -[apiutil:extract_data] - json提取到的数据为：{'token': 'bAE1C072dA006deF333bbdFDce35a'}
+INFO - 2025-10-14 21:54:34,643 - assertions.py:67 -[assertions:equal_assert] - 相等断言成功：接口实际返回结果为：{'msg': '登录成功'},预期结果为:{'msg': '登录成功'}
+INFO - 2025-10-14 22:08:46,166 - sendrequests.py:41 -[sendrequests:run_main] - 接口名称：用户登录
+INFO - 2025-10-14 22:08:46,166 - sendrequests.py:42 -[sendrequests:run_main] - 接口请求地址：http://127.0.0.1:8787/dar/user/login
+INFO - 2025-10-14 22:08:46,167 - sendrequests.py:43 -[sendrequests:run_main] - 请求方法：post
+INFO - 2025-10-14 22:08:46,168 - sendrequests.py:44 -[sendrequests:run_main] - 测试用例名称：用户名和密码正确登录验证
+INFO - 2025-10-14 22:08:46,168 - sendrequests.py:45 -[sendrequests:run_main] - 请求头：{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8', 'token': '${get_extract_data(token)}'}
+INFO - 2025-10-14 22:08:46,168 - sendrequests.py:46 -[sendrequests:run_main] - Cookies：None
+INFO - 2025-10-14 22:08:46,169 - sendrequests.py:51 -[sendrequests:run_main] - 请求参数：{'data': {'user_name': 'test01', 'passwd': 'admin123'}}
+INFO - 2025-10-14 22:08:46,178 - sendrequests.py:26 -[sendrequests:send_request] - cookie:{'Cookie': {'access_token_cookie': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MDQ1MDkyNiwianRpIjoiNWVlNWFlNTUtYThhMC00YWVjLWEzNjYtNjgzMzI3MWFjYmQxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImV4YW1wbGVfdXNlciIsIm5iZiI6MTc2MDQ1MDkyNiwiZXhwIjoxNzYwNDUxODI2fQ.m0LvjWCGKGUPsnKXSQxqs-C5ZK1S8CwHUD7pF4YxTpw'}}
+INFO - 2025-10-14 22:08:46,179 - sendrequests.py:27 -[sendrequests:send_request] - 接口的实际返回信息:{"error_code":null,"msg":"登录成功","msg_code":200,"orgId":"6140913758128971280","token":"79f2b23ECC4EDc49fC50FE537A1EF","userId":"9299847808240705788"}
+
+INFO - 2025-10-14 22:08:46,179 - apiutil.py:185 -[apiutil:extract_data] - json提取到的数据为：{'token': '79f2b23ECC4EDc49fC50FE537A1EF'}
+INFO - 2025-10-14 22:08:46,181 - assertions.py:67 -[assertions:equal_assert] - 相等断言成功：接口实际返回结果为：{'msg': '登录成功'},预期结果为:{'msg': '登录成功'}
+INFO - 2025-10-14 22:09:04,982 - sendrequests.py:41 -[sendrequests:run_main] - 接口名称：新增用户
+INFO - 2025-10-14 22:09:04,982 - sendrequests.py:42 -[sendrequests:run_main] - 接口请求地址：http://127.0.0.1:8787/dar/user/addUser
+INFO - 2025-10-14 22:09:04,982 - sendrequests.py:43 -[sendrequests:run_main] - 请求方法：POST
+INFO - 2025-10-14 22:09:04,983 - sendrequests.py:44 -[sendrequests:run_main] - 测试用例名称：正常新增用户
+INFO - 2025-10-14 22:09:04,983 - sendrequests.py:45 -[sendrequests:run_main] - 请求头：{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}
+INFO - 2025-10-14 22:09:04,983 - sendrequests.py:46 -[sendrequests:run_main] - Cookies：None
+INFO - 2025-10-14 22:09:04,983 - sendrequests.py:51 -[sendrequests:run_main] - 请求参数：{'data': {'username': 'testadduser', 'password': 'tset6789890', 'role_id': 123456789, 'dates': '2023-12-31', 'phone': 13800000000, 'token': '1Fe6Fc2A2499bFF55Ab22EC96223E}'}}
+INFO - 2025-10-14 22:09:04,991 - sendrequests.py:27 -[sendrequests:send_request] - 接口的实际返回信息:{"msg":"新增失败，参数缺失或token失效","msg_code":9001}
+
+ERROR - 2025-10-14 22:09:04,992 - assertions.py:44 -[assertions:contains_assert] - 预期结果：新增成功，实际结果：新增失败，参数缺失或token失效,断言失败
+ERROR - 2025-10-14 22:09:04,993 - assertions.py:122 -[assertions:assert_result] - 测试失败：共有1处断言失败，请查看日志
+INFO - 2025-10-14 22:10:55,901 - sendrequests.py:41 -[sendrequests:run_main] - 接口名称：新增用户
+INFO - 2025-10-14 22:10:55,901 - sendrequests.py:42 -[sendrequests:run_main] - 接口请求地址：http://127.0.0.1:8787/dar/user/addUser
+INFO - 2025-10-14 22:10:55,901 - sendrequests.py:43 -[sendrequests:run_main] - 请求方法：POST
+INFO - 2025-10-14 22:10:55,902 - sendrequests.py:44 -[sendrequests:run_main] - 测试用例名称：正常新增用户
+INFO - 2025-10-14 22:10:55,902 - sendrequests.py:45 -[sendrequests:run_main] - 请求头：{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}
+INFO - 2025-10-14 22:10:55,902 - sendrequests.py:46 -[sendrequests:run_main] - Cookies：None
+INFO - 2025-10-14 22:10:55,903 - sendrequests.py:51 -[sendrequests:run_main] - 请求参数：{'data': {'username': 'testadduser', 'password': 'tset6789890', 'role_id': 123456789, 'dates': '2023-12-31', 'phone': 13800000000, 'token': 'bBE4aBc4eDD8ECeedFC3c911aA4F9}'}}
+INFO - 2025-10-14 22:10:55,909 - sendrequests.py:27 -[sendrequests:send_request] - 接口的实际返回信息:{"msg":"新增失败，参数缺失或token失效","msg_code":9001}
+
+ERROR - 2025-10-14 22:10:55,910 - assertions.py:44 -[assertions:contains_assert] - 预期结果：新增成功，实际结果：新增失败，参数缺失或token失效,断言失败
+ERROR - 2025-10-14 22:10:55,910 - assertions.py:122 -[assertions:assert_result] - 测试失败：共有1处断言失败，请查看日志
+INFO - 2025-10-14 22:14:29,953 - sendrequests.py:41 -[sendrequests:run_main] - 接口名称：新增用户
+INFO - 2025-10-14 22:14:29,953 - sendrequests.py:42 -[sendrequests:run_main] - 接口请求地址：http://127.0.0.1:8787/dar/user/addUser
+INFO - 2025-10-14 22:14:29,954 - sendrequests.py:43 -[sendrequests:run_main] - 请求方法：POST
+INFO - 2025-10-14 22:14:29,954 - sendrequests.py:44 -[sendrequests:run_main] - 测试用例名称：正常新增用户
+INFO - 2025-10-14 22:14:29,955 - sendrequests.py:45 -[sendrequests:run_main] - 请求头：{'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}
+INFO - 2025-10-14 22:14:29,955 - sendrequests.py:46 -[sendrequests:run_main] - Cookies：None
+INFO - 2025-10-14 22:14:29,956 - sendrequests.py:51 -[sendrequests:run_main] - 请求参数：{'data': {'username': 'testadduser', 'password': 'tset6789890', 'role_id': 123456789, 'dates': '2023-12-31', 'phone': 13800000000, 'token': 'bBE4aBc4eDD8ECeedFC3c911aA4F9}'}}
+INFO - 2025-10-14 22:14:29,963 - sendrequests.py:27 -[sendrequests:send_request] - 接口的实际返回信息:{"msg":"新增失败，参数缺失或token失效","msg_code":9001}
+
+ERROR - 2025-10-14 22:14:29,964 - assertions.py:44 -[assertions:contains_assert] - 预期结果：新增成功，实际结果：新增失败，参数缺失或token失效,断言失败
+ERROR - 2025-10-14 22:14:29,964 - assertions.py:122 -[assertions:assert_result] - 测试失败：共有1处断言失败，请查看日志
