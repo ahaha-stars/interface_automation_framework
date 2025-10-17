@@ -1,5 +1,5 @@
 import time
-
+import allure
 import pytest
 
 from base.apiutil import BaseRequest
@@ -28,6 +28,7 @@ def system_login():
     login_data = get_testcase_yaml('./testcase/Login/loginName.yaml')
     case_info = login_data[0][0]
     testcase = login_data[0][1]
+    allure.dynamic.title(testcase['case_name'])
     BaseRequest().specification_yaml(case_info,testcase)
 
 def pytest_terminal_summary(
