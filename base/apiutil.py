@@ -58,6 +58,8 @@ class BaseRequest:
         #还原数据类型（dict or list)，一般是yaml文件不用解析的数据直接到这步使用
         if data and isinstance(data,dict):
             data = json.loads(str_data)
+        elif data and isinstance(data,list):
+            data = json.loads(str_data)
         else:
             data = str_data
         # print(data)
@@ -101,19 +103,20 @@ class BaseRequest:
             val = self.replace_load(test_case.get("validation"))
             test_case['validation'] = val
             # 截取断言的信息 eval() 会识别字符串，转换成对应的Python对象，如果识别是列表就转出列表，字典就转成字典
-            validation = eval(test_case.pop('validation'))
+            validation = test_case.pop('validation')
             #处理 参数提取
             extract = test_case.pop('extract',None)
             #处理 参数列表提取 有时候需要提取一系列的数据
             extract_list = test_case.pop('extract_list',None)
             #（解析）获取请求参数
+
             for key,value in test_case.items():
                 # 如果key是以上三种数据形式其中之一
                 if key in params_type:
                     #有时候需要提取类似token的数据，或者上下接口联动的数据
                     test_case[key] = self.replace_load(value)
                     #print(test_case[key])
-
+            print(test_case)
             # 处理文件接口
             file,files = test_case.pop('files',None),None
             if file is not None:
@@ -229,7 +232,7 @@ if __name__ == '__main__':
     base_info = data[0][0]
     testcase = data[0][1]
     base.specification_yaml(base_info,testcase)
-    data2 = get_testcase_yaml('../testcase/Logistics/getMaterial.yaml')
+    data2 = get_testcase_yaml('../testcase/Logistics/handCapacityDispatch.yaml')
     base_info1 = data2[0][0]
     testcase1 = data2[0][1]
     base.specification_yaml(base_info1,testcase1)
