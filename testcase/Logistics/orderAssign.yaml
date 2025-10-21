@@ -1,0 +1,16 @@
+- baseInfo:
+    api_name: 集团分配订单给物流公司
+    url: /api/order/pc/order/assign
+    method: post
+    header:
+      Content-Type: application/json;charset=UTF-8
+    Cookies: ${get_extract_data(Cookie)}
+  testCase:
+    - case_name: 集团分配订单给物流公司
+      json:
+        orderId: ${get_extract_data(orderId)}  # 订单ID（必填）
+        orgId: "4140913758110176843"    # 物流公司组织ID（必填，示例值）
+        timeStamp: "1233125891"          # 时间戳（非必填)
+      validation:
+        - contains: { "code": 20000 }    # 断言状态码为成功标识
+        - contains: { "message": "操作成功" }  # 断言操作结果消息

@@ -1,0 +1,15 @@
+- baseInfo:
+    api_name: 集团接收货主订单
+    url: /api/order/pc/order/master/receive
+    method: post
+    header:
+      Content-Type: application/json;charset=UTF-8
+    Cookies: ${get_extract_data(Cookie)}
+  testCase:
+    - case_name: 集团接收货主订单
+      json:
+        orderId: ${get_extract_data(orderId)} # 订单ID（必填）
+        timeStamp: "1233125891"
+      validation:
+        - contains: { "code": 20000 }  # 断言状态码
+        - contains: { "message": "操作成功" }  # 断言操作结果消息

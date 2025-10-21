@@ -1,0 +1,17 @@
+- baseInfo:
+    api_name: 物流公司接单
+    url: /api/order/pc/order/trans/receive
+    method: post
+    header:
+      Content-Type: application/json;charset=UTF-8
+    Cookies: ${get_extract_data(Cookie)}
+  testCase:
+    - case_name: 物流公司接单
+      json:
+        orderId: ${get_extract_data(orderId)}  # 订单ID（必填）
+        timeStamp: "1233125891"          # 时间戳（非必填，示例值）
+      validation:
+        - contains: { "code": 20000 }    # 断言状态码为成功标识
+        - contains: { "message": "操作成功" }  # 断言操作结果消息
+      extract:
+        logistics_id: $.data.logistics_id

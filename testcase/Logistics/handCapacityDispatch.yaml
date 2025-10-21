@@ -1,0 +1,29 @@
+- baseInfo:
+    api_name: 物流公司调度派车
+    url: /api/order/pc/logisticsOrder/handCapacityDispatch
+    method: post
+    header:
+      Content-Type: application/json;charset=UTF-8
+    Cookies: ${get_extract_data(Cookie)}  # 引用登录接口返回的Cookies
+  testCase:
+    - case_name: 物流公司调度派车
+      json: # 最外层为数组，包含调度派车信息
+        - logisticsOrderId: ${get_extract_data(logistics_id)} # 物流订单ID（必填）
+          itemId: "16794264872418631691"  # 物料ID（必填）
+          dispatchNum: 50  # 调度数量（必填）
+          carrierId: "1661558222301904898"  # 承运商ID（必填）
+          carrierName: "长凡贸易有限公司"  # 承运商名称（必填）
+          driverId: "1661573945107611649"  # 司机ID（必填）
+          driverName: "李斯"  # 司机姓名（必填）
+          driverPhone: "15810108888"  # 司机手机号（必填）
+          vehicleId: 1661574934279684098  # 车辆ID（必填）
+          vehicleNo: "川AL6826"  # 车牌号（必填）
+          vehicleColor: 2  # 车牌颜色（1绿色，2黄色，必填）
+          vehicleDistinguishNo: "AL6826"  # 车辆自编号（必填）
+          vehicleType: "1657997625979293698"  # 车辆类型ID（必填）
+          vehicleTypeName: "自卸车"  # 车型名称（必填）
+      validation:
+        - eq: { "code": 20000 }  # 断言状态码为成功标识
+        - contains: { "message": "操作成功" }  # 断言操作结果消息
+      extract:
+        scheduleNo: $.scheduleNo

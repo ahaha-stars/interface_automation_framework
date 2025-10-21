@@ -67,4 +67,4 @@ def pytest_terminal_summary(
     总时长:{duration}
     点击查看测试报告：www.baidu.com
     """
-    send_dingding_msg(content=content)
+    #send_dingding_msg(content=content)

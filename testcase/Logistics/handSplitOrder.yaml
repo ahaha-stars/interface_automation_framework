@@ -1,0 +1,19 @@
+- baseInfo:
+    api_name: 物流公司拆分订单
+    url: /api/order/pc/logisticsOrder/handSplitOrder
+    method: post
+    header:
+      Content-Type: application/json;charset=UTF-8
+    Cookies: ${get_extract_data(Cookie)}  # 引用登录接口返回的Cookies
+  testCase:
+    - case_name: 物流公司拆分订单
+      json:
+        list: # 拆分明细列表（必填）
+          - itemId: "1679423155475509250"  # 项目ID（必填）
+            itemNum: 100  # 项目数量（必填）
+            splitNum: 50  # 拆分数量（必填）
+        logisticsOrderId: ${get_extract_data(logistics_id)}  # 物流订单号（必填）
+      validation:
+        - contains: { "code": 20000 }  # 断言状态码为成功标识
+        - contains: { "message": "操作成功" }  # 断言操作结果消息
+        - eq: { "logisticsStatus": "1" }  # 断言物流状态为"1"

@@ -44,14 +44,16 @@ class SendRequests(object):
         logs.info(f'测试用例名称：{case_name}')
         logs.info(f'请求头：{headers}')
         logs.info(f'Cookies：{cookies}')
+        #print(kwargs)
         req_params = json.dumps(kwargs,ensure_ascii=False)
-        #print(req_params)   req_params 是请求参数，是一个动态变量
+        #print(req_params)   #req_params 是请求参数，是一个动态变量
         try:
             if 'data' in kwargs.keys():
                 #print(kwargs)
                 logs.info("请求参数：%s" % kwargs)
                 allure.attach(str(req_params), f'请求头：{req_params}', attachment_type=allure.attachment_type.TEXT)
             elif 'json' in kwargs.keys():
+                #print(kwargs)
                 logs.info(f"请求参数：{kwargs}")
                 allure.attach(str(req_params), f'请求头：{req_params}', attachment_type=allure.attachment_type.TEXT)
             elif 'params' in kwargs.keys():
