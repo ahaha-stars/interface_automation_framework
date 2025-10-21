@@ -41,7 +41,15 @@ class ConnectMysql():
             self.cursor.execute(sql)
             self.conn.commit()
             res = self.cursor.fetchall()
-            return res
+            if not res:
+                return []
+
+            keys = list(res[0].keys()) if res else []
+            values = [list(item.values()) for item in res]
+
+            result = [keys] + values
+            return result
+
         except Exception as e:
             logs.error(e)
         finally:
@@ -53,12 +61,46 @@ class ConnectMysql():
         :param sql:
         :return:
         """
+        try:
+            # 执行插入语句（参数化查询，避免SQL注入）
+            # params为参数列表，例如插入(name, age)时，params=(张三, 20)
+            self.cursor.execute(sql)
+
+            # 提交事务（插入操作必须提交才会生效）
+            self.conn.commit()
+
+            # 获取受影响的行数（通常为1，因为单条插入）
+            affected_rows = self.cursor.rowcount
+
+            # 如果表有自增ID，可返回最后插入的ID（不同数据库语法可能不同）
+            # 例如MySQL用 lastrowid，PostgreSQL用 returning 子句，这里以MySQL为例
+            last_insert_id = self.cursor.lastrowid
+
+            # 返回受影响行数和自增ID（按需选择）
+            return {
+                "affected_rows": affected_rows,
+                "last_insert_id": last_insert_id
+            }
+
+        except Exception as e:
+            # 发生异常时回滚事务，避免数据不一致
+            self.conn.rollback()
+            print(f"插入操作失败：{str(e)}")
+            return None
+
 
     def updata(self,sql):
         pass
 
     def delete(self,sql):
-        pass
+        try:
+            self.cursor.execute(sql)
+            self.conn.commit()
+            logs.info('删除成功')
+        except Exception as e:
+            logs.error(e)
+        finally:
+            self.close()
 
 if __name__ == '__main__':
     conn = ConnectMysql()

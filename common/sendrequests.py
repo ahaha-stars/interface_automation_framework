@@ -59,7 +59,7 @@ class SendRequests(object):
                 allure.attach(str(req_params), f'请求头：{req_params}', attachment_type=allure.attachment_type.TEXT)
         except Exception as e:
             logs.info(e)
-        response = self.send_request(method=method,url=url,headers=headers,cookies=None,files=file,
+        response = self.send_request(method=method,url=url,headers=headers,cookies=cookies,files=file,
                                      verify=False,**kwargs)
         return response
 

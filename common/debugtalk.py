@@ -11,15 +11,16 @@ class DebugTalk:
             return data[randoms - 1]
 
 
-    #读取接口yaml文件数据
+    #读取接口yaml文件数据，一般写yaml中 如${get_extract_data()}
     def get_extract_data(self,node_name,randoms=None):
         """
         :param node_name: extract.yaml 的 key值
-        :param random: 读取数据的方式，随机或者全部或者列表
+        :param random: 读取数据的方式，随机或者全部或者列表,因为yaml解析需要的数据可以是其中一个或者是全部，可供选择
         :return:
         """
         #print(node_name)
         #print("当前工作目录:", os.getcwd())
+        # 获取extract.yaml中的所有数据
         data = self.read.get_extract_yaml(node_name)
         #print(data)
         if randoms is not None:
@@ -41,6 +42,7 @@ class DebugTalk:
         """获取当前时间戳，10位"""
         t = int(time.time())
         return t
+
 if __name__ == '__main__':
     debug = DebugTalk()
     data = debug.get_extract_data('goodsId',-1)

@@ -4,7 +4,7 @@ import logging
 
 #项目基础路径
 DIR_BASE = os.path.dirname(os.path.dirname(__file__))
-#print(DIR_PATH)
+# print(DIR_BASE)
 
 #log日志的输出级别
 LOG_LEVEL = logging.DEBUG # 日志输出文件的级别
@@ -17,5 +17,5 @@ FILE_PATH = {
     'LOG': os.path.join(DIR_BASE, 'logs')
 }
 
-#print(FILE_PATH['extract'])
+print(FILE_PATH['extract'])
 print(FILE_PATH['conf'])

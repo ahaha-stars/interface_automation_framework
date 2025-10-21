@@ -32,6 +32,7 @@ class OperationConfig:
     def get_envi(self,option):
         return self.get_section_for_data('api_envi',option)
     #获取config.ini中的
+
     def get_mysql_conf(self,option):
         return self.get_section_for_data('MYSQL',option)
 

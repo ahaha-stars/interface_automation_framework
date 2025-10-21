@@ -1,0 +1,13 @@
+- baseInfo:
+    api_name: 下单物料信息
+    url: /api/order/customer/orderPlan/getMaterial
+    method: post
+    header:
+      Content-Type: application/json;charset=UTF-8
+    Cookies: ${get_extract_data(Cookie)}
+  testCase:
+    - case_name: 获取下单物料信息
+      json:
+      validation:
+        - contains: { 'code': 20000 }
+        - contains: {'message': '操作成功'}

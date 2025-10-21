@@ -87,24 +87,6 @@ class ReadYamlData:
 
 
 if __name__ == '__main__':
-    # res = get_testcase_yaml('../testcase/Login/login.yaml')[0]
-    # #print(res)
-    # url = res['baseInfo']['url']
-    # new_url = 'http://127.0.0.1:8787'+url
-    # method = res['baseInfo']['method']
-    # data = res['testcase'][0]['data']
-    # send = SendRequests()
-    # res = send.run_main(method=method,data=data,url=new_url)
-    # #print(res)
-    #
-    # token = res.get('token')
-    # write_data = {}
-    # write_data['Token'] = token
-    # #print(token)
-    # read = ReadYamlData()
-    # read.write_yaml_data(write_data)
-    # res2 = read.get_extract_yaml('token')
-    # print(res2)
     #print("当前工作目录：", os.getcwd())
     res = get_testcase_yaml("../testcase/Login/login.yaml")
     #res = get_testcase_yaml("../testcase/SingleInterface/addUser.yaml")
