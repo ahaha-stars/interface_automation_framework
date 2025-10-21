@@ -4,6 +4,8 @@ import jsonpath
 import allure
 from common.recordlog import logs
 from common.connection import ConnectMysql
+import json
+import copy
 
 class Assertions:
     """
@@ -30,18 +32,18 @@ class Assertions:
                                   attachment_type=allure.attachment_type.TEXT)
                     logs.error("contains断言失败，接口返回码【%s】不等于【%s]" % (status_code,assert_value))
                     flag += 1
+                else:
+                    logs.info(f'包含断言成功，接口实际返回状态码为：{assert_value},预期返回状态码为:{status_code}')
             else:
                 resp_list = jsonpath.jsonpath(response,'$..%s' % assert_key)
-                #print(resp_list)
                 if isinstance(resp_list[0],str):
                     resp_list = ''.join(resp_list)
-                    #print(resp_list)
                 if resp_list:
                     if assert_value in resp_list:
-                        logs.info(f"预期结果:{assert_value} 包含实际结果：{resp_list},断言成功")
+                        logs.info(f"包含断言成功，接口实际返回结果为：{assert_value},预期结果为:{value}")
                     else:
                         flag += 1
-                        logs.error(f'预期结果：{assert_value}，实际结果：{resp_list},断言失败')
+                        logs.error(f'包含断言失败，接口实际返回结果为：{assert_value},预期结果为：{value}')
                         allure.attach(f"预期结果：{assert_value}\n实际结果：{resp_list}", '响应代码断言结果:失败',
                                       attachment_type=allure.attachment_type.TEXT)
         return flag
@@ -55,26 +57,28 @@ class Assertions:
         """
         flag = 0
         res_list = []
-        if isinstance(value,dict) and isinstance(response,dict):
-            for res in response:
+        response_eq = copy.deepcopy(response)
+        if isinstance(value,dict) and isinstance(response_eq,dict):
+            for res in response_eq:
                 if list(value.keys())[0] != res:
                     res_list.append(res)
             for rl in res_list:
-                del response[rl]
-            print(f'实际结果为:{response}')
-            eq_assert = operator.eq(response,value)
+                del response_eq[rl]
+            print(f'实际结果为:{response_eq}')
+            eq_assert = operator.eq(response_eq,value)
             if eq_assert:
-                logs.info(f"相等断言成功：接口实际返回结果为：{response},预期结果为:{value}")
+                logs.info(f"相等断言成功：接口实际返回结果为：{response_eq},预期结果为:{value}")
             else:
-                logs.error(f"相等断言失败，接口实际返回结果为：{response},预期结果为：{value}")
+                logs.error(f"相等断言失败，接口实际返回结果为：{response_eq},预期结果为：{value}")
+                allure.attach(f"预期结果：{value}\n实际结果：{response_eq}", '响应代码断言结果:失败',
+                              attachment_type=allure.attachment_type.TEXT)
         else:
             flag += 1
             #raise TypeError('相等断言失败，数据类型错误，预期结果与接口实际返回值要为字典类型')
-
         return flag
 
-    def not_equal_assert(self):
-        pass
+    # def not_equal_assert(self):
+    #     pass
 
     def assert_mysql(self,expected_sql):
         """
