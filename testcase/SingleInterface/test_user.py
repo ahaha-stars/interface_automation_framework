@@ -1,5 +1,4 @@
 import pytest
-import pytest_metadata.plugin
 from base.generateId import model_id,case_id
 from common.readyaml import get_testcase_yaml
 from common.recordlog import logs
