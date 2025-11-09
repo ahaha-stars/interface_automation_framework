@@ -48,18 +48,34 @@ class Assertions:
                                       attachment_type=allure.attachment_type.TEXT)
         return flag
 
-    def equal_assert(self,value,response):
+    def equal_assert(self,value,response,status_code):
         """
         相等断言模式
         :param value: 预期结果，yaml文件validation的参数，要为字典类型
-        :param response:
+        :param response: 实际结果
+        :status_code 实际的请求状态码
         :return:
         """
         flag = 0
         res_list = []
         response_eq = copy.deepcopy(response)
+
+        for assert_key,assert_value in value.items():
+            #print(assert_key,assert_value)
+            if assert_key == 'status_code':
+                if assert_value != status_code:
+                    allure.attach(f"预期结果：{assert_value}\n实际结果：{status_code}", '响应代码断言结果:失败',
+                                  attachment_type=allure.attachment_type.TEXT)
+                    logs.error("contains断言失败，接口返回码【%s】不等于【%s]" % (status_code,assert_value))
+                    flag += 1
+                else:
+                    logs.info(f"相等断言成功：接口实际返回结果为：{assert_value},预期结果为:{status_code}")
+                    return flag
+
         if isinstance(value,dict) and isinstance(response_eq,dict):
             for res in response_eq:
+                #print(list(value.keys())[0])
+                # 如果与断言无效的字段，就放入res_list,后续用于删除，list(value.keys())[0]是获取字典的第一个键
                 if list(value.keys())[0] != res:
                     res_list.append(res)
             for rl in res_list:
@@ -113,7 +129,7 @@ class Assertions:
                         #print(flag)
                         all_flag += flag
                     elif key == 'eq':
-                        flag = self.equal_assert(value,response)
+                        flag = self.equal_assert(value,response,status_code)
                         all_flag += flag
                     elif key == 'db':
                         flag = self.assert_mysql(value)
