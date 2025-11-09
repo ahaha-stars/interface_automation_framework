@@ -72,9 +72,9 @@ class Assertions:
                 logs.error(f"相等断言失败，接口实际返回结果为：{response_eq},预期结果为：{value}")
                 allure.attach(f"预期结果：{value}\n实际结果：{response_eq}", '响应代码断言结果:失败',
                               attachment_type=allure.attachment_type.TEXT)
+                flag += 1
         else:
             flag += 1
-            #raise TypeError('相等断言失败，数据类型错误，预期结果与接口实际返回值要为字典类型')
         return flag
 
     # def not_equal_assert(self):

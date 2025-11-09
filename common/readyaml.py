@@ -16,6 +16,7 @@ def get_testcase_yaml(file):
     try:
         with open(file,'r',encoding='utf-8') as f:
             data = yaml.safe_load(f)
+            #print(len(data))
             # 当yaml只有一个测试用例，或者同一接口的不同结果的测试用例时，均在一个字典内，长度为1
             ## 1，只有一个用例，     2，同一接口但多种返回结果
             if len(data) <= 1:

@@ -22,6 +22,7 @@ class SendRequests(object):
             set_cookie = requests.utils.dict_from_cookiejar(result.cookies)
             if set_cookie:
                 cookie['Cookie'] = set_cookie
+                #写入cookie到extract文件
                 self.read.write_yaml_data(cookie)
                 logs.info(f'cookie:{cookie}')
             logs.info(f'接口的实际返回信息:{result.text}')

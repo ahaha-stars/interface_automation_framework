@@ -150,6 +150,65 @@ class BaseRequest:
             #logs(e)
             raise e
 
+    #处理一系列业务的接口，用于接受 get_testcase_yaml 中  len(data) > 1 情况，即 多个接口，
+    def specification_business_yaml(self,case_info):
+        params_type = ['json','data','params']
+        cookie = None
+        try:
+            base_url = self.conf.get_section_for_data('api_envi','host')
+            url = base_url + case_info['baseInfo']['url']
+            allure.attach(url,f'接口地址{url}')
+            api_name = case_info['baseInfo']['api_name']
+            allure.attach(api_name,f'接口名{api_name}')
+            header = self.replace_load(case_info['baseInfo']['header'])
+            method = case_info["baseInfo"]["method"]
+            allure.attach(method, f'请求方法：{method}')
+            allure.attach(str(header), '请求头信息', allure.attachment_type.TEXT)
+
+            if case_info['baseInfo'].get('Cookies') is not None:
+                cookie = self.replace_load(case_info['baseInfo']['Cookies'])
+                allure.attach(str(cookie), 'Cookie', allure.attachment_type.TEXT)
+
+            for tc in case_info['testCase']:
+                case_name = tc.pop('case_name')
+                allure.attach(case_name, f'测试用例名称：{case_name}', allure.attachment_type.TEXT)
+                val = self.replace_load(tc.get('validation'))
+                tc['validation'] = val
+                validation = tc.pop('validation')
+                extract = tc.pop('extract', None)
+                extract_lst = tc.pop('extract_list', None)
+
+                for key,value in tc.items():
+                    if key in params_type:
+                        tc[key] = self.replace_load(value)
+                file, files = tc.pop("files", None), None
+
+                if file is not None:
+                    for fk, fv in file.items():
+                        allure.attach(json.dumps(file), '导入文件')
+                        files = {fk: open(fv, 'rb')}
+                res = self.send.run_main(name=api_name, url=url, case_name=case_name, headers=header,
+                                        method=method, file=files, cookies=cookie, **tc)
+                res_text = res.text
+                allure.attach(res_text, '接口响应信息', allure.attachment_type.TEXT)
+                status_code = res.status_code
+
+                try:
+                    res_json = json.loads(res_text)
+                    if extract is not None:
+                        self.extract_data(extract,res.text)
+                    if extract_lst is not None:
+                        self.extract_data_list(extract_lst,res_text)
+                    assert_res.assert_result(validation,res_json,status_code)
+                except JSONDecodeError as js:
+                    logs.error('系统异常或者接口未请求！')
+                    raise js
+                except Exception as e:
+                    logs.error(e)
+                    raise e
+        except Exception as e:
+            logs.error(e)
+            raise e
     #提取extract的列表数据
     def extract_data_list(self,testcase_extract_list,response):
         """
