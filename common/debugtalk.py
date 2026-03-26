@@ -35,8 +35,7 @@ class DebugTalk:
             data = data_value[randoms]
         return data
 
-    def md5_params(self,params):
-        pass
+
 
     def timestamp(self):
         """获取当前时间戳，10位"""

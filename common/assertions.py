@@ -35,8 +35,10 @@ class Assertions:
                 else:
                     logs.info(f'包含断言成功，接口实际返回状态码为：{assert_value},预期返回状态码为:{status_code}')
             else:
+                # 返回的是一个列表
                 resp_list = jsonpath.jsonpath(response,'$..%s' % assert_key)
                 if isinstance(resp_list[0],str):
+                    # 这里可以避免resp_list = ['登录', '成功']时，变成登录成功，脱离列表形式，无缝拼接成字符串，后续包含断言
                     resp_list = ''.join(resp_list)
                 if resp_list:
                     if assert_value in resp_list:

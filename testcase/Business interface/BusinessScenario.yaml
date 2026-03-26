@@ -6,6 +6,7 @@
     header:
       Content-Type: application/x-www-form-urlencoded;charset=UTF-8
       token: ${get_extract_data(token)}
+
   testCase:
     - case_name: 获取商品列表
       params:

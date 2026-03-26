@@ -12,30 +12,6 @@ class SendRequests(object):
     def __init__(self):
         self.read = ReadYamlData()
 
-    #封装请求的方法
-    def send_request(self,**kwargs):
-        cookie = {}
-        session = requests.session()
-        result = None
-        try:
-            result = session.request(**kwargs)
-            set_cookie = requests.utils.dict_from_cookiejar(result.cookies)
-            if set_cookie:
-                cookie['Cookie'] = set_cookie
-                #写入cookie到extract文件
-                self.read.write_yaml_data(cookie)
-                logs.info(f'cookie:{cookie}')
-            logs.info(f'接口的实际返回信息:{result.text}')
-        except requests.exceptions.ConnectionError:
-            logs.error("接口连接服务器异常")
-            pytest.fail("接口连接服务器异常")
-        except requests.exceptions.HTTPError:
-            logs.error("http异常")
-            pytest.fail("http异常")
-        except requests.exceptions.RequestException as e:
-            logs.error(e)
-            pytest.fail("e")
-        return result
 
     #组合封装   调用的主方法
     def run_main(self,name,url,case_name,headers,method,cookies=None,file=None,**kwargs):
@@ -65,6 +41,31 @@ class SendRequests(object):
         response = self.send_request(method=method,url=url,headers=headers,cookies=cookies,files=file,
                                      verify=False,**kwargs)
         return response
+
+    #封装请求的方法
+    def send_request(self,**kwargs):
+        cookie = {}
+        session = requests.session()
+        result = None
+        try:
+            result = session.request(**kwargs)
+            set_cookie = requests.utils.dict_from_cookiejar(result.cookies)
+            if set_cookie:
+                cookie['Cookie'] = set_cookie
+                #写入cookie到extract文件
+                self.read.write_yaml_data(cookie)
+                logs.info(f'cookie:{cookie}')
+            logs.info(f'接口的实际返回信息:{result.text}')
+        except requests.exceptions.ConnectionError:
+            logs.error("接口连接服务器异常")
+            pytest.fail("接口连接服务器异常")
+        except requests.exceptions.HTTPError:
+            logs.error("http异常")
+            pytest.fail("http异常")
+        except requests.exceptions.RequestException as e:
+            logs.error(e)
+            pytest.fail("e")
+        return result
 
 if __name__ == "__main__":
     url = "http://127.0.0.1:8787/dar/user/login"

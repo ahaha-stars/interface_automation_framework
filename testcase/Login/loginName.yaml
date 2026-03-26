@@ -11,6 +11,29 @@
         passwd: admin123
       validation:
         - eq: { 'status_code': 200 }
-        - eq: { 'msg': '登录成功' }
+        - contains: { 'msg': '登录成功' }
       extract:
         token: $.token
+#
+#     最外层是一个列表 (List)：因为它以 - 开头。该列表包含 1 个元素。
+# [
+#  {
+#    "baseInfo": {
+#      "api_name": "用户登录",
+#      "url": "/dar/user/login",
+#      "method": "post",
+#      "header": {
+#        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+#      }
+#    },
+#    "testCase": [
+#      {
+#        "case_name": "...",
+#        "data": { ... },
+#        "validation": [ ... ],
+#        "extract": { ... }
+#      }
+#    ]
+#  }
+#]
+#      该元素是一个字典 (Dictionary)：这个字典包含 2 个键值对：baseInfo 和 testCase。

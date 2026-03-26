@@ -7,4 +7,4 @@ if __name__ == '__main__':
                  '--clean-alluredir'])
     shutil.copy('./environment.xml','./report/temp')
     #启动allure服务命令，Jenkins服务时要关闭
-    #os.system(f'allure serve ./report/temp')
+    os.system(f'allure serve ./report/temp')

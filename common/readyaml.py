@@ -22,6 +22,7 @@ def get_testcase_yaml(file):
             if len(data) <= 1:
                 yaml_data = data[0]
                 base_info = yaml_data.get('baseInfo')
+# 循环的作用：一个 baseInfo（接口地址、方法）对应了一组 testCase（多个测试数据，比如正确登录、密码错误、用户名不存在等）。
                 for ts in yaml_data.get('testCase'):
                     #两个元素，到时分配到 @pytest.mark.parametrize的baseinfo,testcase
                     param = [base_info,ts]
@@ -63,7 +64,7 @@ class ReadYamlData:
         finally:
             file.close()
 
-    #清楚yaml文件数据，每次运行脚本前执行
+    #清除yaml文件数据，每次运行脚本前执行
     def clear_yaml_data(self):
         with open(FILE_PATH['extract'],'w') as f:
             f.truncate()

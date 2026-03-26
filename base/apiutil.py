@@ -196,9 +196,12 @@ class BaseRequest:
                 try:
                     res_json = json.loads(res_text)
                     if extract is not None:
+                        # 若接口的返回数据需要进行提取
                         self.extract_data(extract,res.text)
                     if extract_lst is not None:
+                        # 需要提取的数据是多个，则进行列表提取
                         self.extract_data_list(extract_lst,res_text)
+                    # 处理断言
                     assert_res.assert_result(validation,res_json,status_code)
                 except JSONDecodeError as js:
                     logs.error('系统异常或者接口未请求！')
@@ -209,6 +212,7 @@ class BaseRequest:
         except Exception as e:
             logs.error(e)
             raise e
+
     #提取extract的列表数据
     def extract_data_list(self,testcase_extract_list,response):
         """
@@ -249,23 +253,37 @@ class BaseRequest:
         :return:
         """
         #print(testcase_extract)
+
         pattern_list = ['(.+?)','(.*?)',r'(\d+)',r'(\d*)']  # 正则提取
         try:
             for key,value in testcase_extract.items():
-                #print(key,value)
+                #print(key,value)            
+# ext_list = re.search('"token": "(.*?)"', '{"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...)
+# 匹配结果：match对象，group(1) = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
                 for pat in pattern_list:
                     if pat in value:
                         #print(pat)
-                        #使用 value 作为正则表达式，在 response 字符串中进行搜索，寻找第一个匹配的内容。
+                        #使用 value 作为正则表达式，在 response 字符串中进行搜索
                         ext_list = re.search(value,response)
                         if pat in [r'(\d+)',r'(\d*)']:
+                            #寻找第一个匹配的内容。
                             extract_data = {key:int(ext_list.group(1))}
                         else:
                             extract_data = {key:ext_list.group(1)}
                         logs.info(f"正则表达式提取到的参数：{extract_data}")
                         self.read.write_yaml_data(extract_data)
 
-            #json提取器
+
+#json提取器执行过程 ：例子
+# 1. 遍历到 key='token', value='$.token'
+# 2. 正则模式检查： '$.token' 不包含任何正则模式，跳过
+# 3. JSON提取检查： '$' in '$.token' 为True
+# 4. json.loads(response) → {'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...', 'msg': 'success'}
+# 5. jsonpath.jsonpath(obj, '$.token') → ['eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...']
+# 6. [0] → 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+# 7. extract_data = {'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'}
+# 8. 写入YAML文件
+                #json提取器执行过程 ：
                 if '$' in value:
                     # 若是yaml文件的问题，即value有问题，会被except
                     ext_json = jsonpath.jsonpath(json.loads(response),value)[0]
@@ -291,8 +309,8 @@ if __name__ == '__main__':
     base_info = data[0][0]
     testcase = data[0][1]
     base.specification_yaml(base_info,testcase)
-    data2 = get_testcase_yaml('../testcase/Logistics/handCapacityDispatch.yaml')
-    base_info1 = data2[0][0]
-    testcase1 = data2[0][1]
-    base.specification_yaml(base_info1,testcase1)
+    # data2 = get_testcase_yaml('../testcase/Logistics/handCapacityDispatch.yaml')
+    # base_info1 = data2[0][0]
+    # testcase1 = data2[0][1]
+    # base.specification_yaml(base_info1,testcase1)
 
