@@ -5,6 +5,7 @@ pipeline {
         // 【修改点 1】Windows 下通常直接叫 python
         PYTHON_PATH = "python"
         ALLURE_RESULTS = "report/temp"
+        ALLURE_REPORT = "report/html"
     }
 
     stages {

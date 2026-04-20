@@ -6,7 +6,7 @@ pipeline {
         PYTHON_PATH = "python3"
         // 设置报告和日志的路径，对应项目中的 report/ 和 logs/ 目录
         ALLURE_RESULTS = "report/temp"
-        ALLURE_REPORT = "report/html"
+
     }
 
     stages {
