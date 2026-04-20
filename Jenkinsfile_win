@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Windows 下通常直接叫 python
-        PYTHON_PATH = "F:\\Program Files\\Python\\python.exe"
+        PYTHON_PATH = '"F:\\Program Files\\Python\\python.exe"'
         ALLURE_RESULTS = "report/temp"
     }
 
