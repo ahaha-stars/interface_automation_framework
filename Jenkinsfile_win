@@ -2,36 +2,36 @@ pipeline {
     agent any
 
     environment {
-        // 【修改点 1】Windows 下通常直接叫 python
+        // Windows 下通常直接叫 python
         PYTHON_PATH = "python"
         ALLURE_RESULTS = "report/temp"
-        ALLURE_REPORT = "report/html"
     }
 
     stages {
         stage('环境检查与准备') {
             steps {
                 echo '检查 Python 环境...'
-                // 【修改点 2】所有的 sh 改为 bat
                 bat "${PYTHON_PATH} --version"
 
                 echo '清空临时数据文件 extract.yaml...'
-                // Windows 下清空文件的单行命令稍有不同
                 bat "${PYTHON_PATH} -c \"open('extract.yaml', 'w').close()\""
+
+                echo '正在当前 Workspace 创建 Python 虚拟环境...'
+                bat "${PYTHON_PATH} -m venv venv"
             }
         }
 
         stage('安装依赖') {
             steps {
-                echo '从 requirements.txt 安装项目依赖...'
-                bat "${PYTHON_PATH} -m pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple"
+                echo '在虚拟环境中安装项目依赖...'
+                bat "venv\\Scripts\\python -m pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple"
             }
         }
 
         stage('执行接口测试') {
             steps {
-                echo '启动 Pytest 执行测试用例...'
-                bat "${PYTHON_PATH} -m pytest --alluredir=${ALLURE_RESULTS} --clean-alluredir"
+                echo '使用虚拟环境的 Pytest 执行测试用例...'
+                bat "venv\\Scripts\\pytest --alluredir=${ALLURE_RESULTS} --clean-alluredir"
             }
         }
 
@@ -53,8 +53,8 @@ pipeline {
 
         failure {
             echo '测试失败，触发钉钉通知...'
-            // 【修改点 3】同样改为 bat 和 python
-            bat "${PYTHON_PATH} common/dingRobot.py"
+            // 【关键修复】使用虚拟环境的 python 运行钉钉脚本，确保能找到 requests 等依赖包
+            bat "venv\\Scripts\\python common/dingRobot.py"
         }
     }
 }
