@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        // Windows 通常直接叫 python
+        // 如果 python 在系统变量中，直接写 "python"
+        // 如果不在，建议写全路径，PowerShell 对带空格的路径支持更好
         PYTHON_PATH = "python"
         ALLURE_RESULTS = "report/temp"
     }
@@ -11,27 +12,29 @@ pipeline {
         stage('环境检查与准备') {
             steps {
                 echo '检查 Python 环境...'
-                bat "${PYTHON_PATH} --version"
+                powershell "${PYTHON_PATH} --version"
 
                 echo '清空临时数据文件 extract.yaml...'
-                bat "${PYTHON_PATH} -c \"open('extract.yaml', 'w').close()\""
+                // PowerShell 中双引号嵌套需要更小心，或者使用单引号
+                powershell "${PYTHON_PATH} -c 'open(\"extract.yaml\", \"w\").close()'"
 
                 echo '正在当前 Workspace 创建 Python 虚拟环境...'
-                bat "${PYTHON_PATH} -m venv venv"
+                powershell "${PYTHON_PATH} -m venv venv"
             }
         }
 
         stage('安装依赖') {
             steps {
                 echo '在虚拟环境中安装项目依赖...'
-                bat "venv\\Scripts\\python -m pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple"
+                // PowerShell 支持正斜杠，写起来更舒服
+                powershell "./venv/Scripts/python -m pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple"
             }
         }
 
         stage('执行接口测试') {
             steps {
                 echo '使用虚拟环境的 Pytest 执行测试用例...'
-                bat "venv\\Scripts\\pytest --alluredir=${ALLURE_RESULTS} --clean-alluredir"
+                powershell "./venv/Scripts/pytest --alluredir=${ALLURE_RESULTS} --clean-alluredir"
             }
         }
 
@@ -48,13 +51,13 @@ pipeline {
     post {
         always {
             echo '归档测试日志...'
+            // 注意：archiveArtifacts 是 Jenkins 步骤，不需要改为 powershell
             archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
         }
 
         failure {
             echo '测试失败，触发钉钉通知...'
-            // 【关键修复】使用虚拟环境的 python 运行钉钉脚本，确保能找到 requests 等依赖包
-            bat "venv\\Scripts\\python common/dingRobot.py"
+            powershell "./venv/Scripts/python common/dingRobot.py"
         }
     }
 }
