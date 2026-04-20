@@ -2,13 +2,12 @@ pipeline {
     agent any
 
     environment {
-        // 如果系统 PATH 已经有 Python，用 "python" 即可
-        // 否则请使用 F:/Python312/python.exe 这种无空格的全路径
+        // 如果 python 已加入系统变量，使用 "python" 即可
         PYTHON_PATH = "python"
         ALLURE_RESULTS = "report/temp"
     }
 
-    // 全局超时：防止流水线无限期挂起
+    // 设置全局超时，防止 Windows 进程挂起导致资源浪费
     options {
         timeout(time: 10, unit: 'MINUTES')
     }
@@ -19,9 +18,9 @@ pipeline {
                 echo '检查 Python 环境...'
                 powershell "${PYTHON_PATH} --version"
 
-                echo '清空临时数据文件 extract.yaml...'
-                // 使用 PowerShell 原生命令，彻底规避 Python 引号嵌套错误
-                powershell "${PYTHON_PATH} -c \"open('extract.yaml', 'w').close()\""
+                echo '初始化临时数据文件 extract.yaml...'
+                // 使用 PowerShell 原生命令清空或创建文件，避免 Python 引号冲突
+                powershell "if (Test-Path 'extract.yaml') { Remove-Item 'extract.yaml' }; New-Item -Path 'extract.yaml' -ItemType File"
 
                 echo '正在当前 Workspace 创建 Python 虚拟环境...'
                 powershell "${PYTHON_PATH} -m venv venv"
@@ -31,7 +30,7 @@ pipeline {
         stage('安装依赖') {
             steps {
                 echo '在虚拟环境中安装项目依赖...'
-                // 使用 ./ 前缀和正斜杠
+                // 使用 ./ 指定当前目录下的路径，PowerShell 对正斜杠支持更好
                 powershell "./venv/Scripts/python -m pip install --upgrade pip"
                 powershell "./venv/Scripts/python -m pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple"
             }
@@ -40,7 +39,7 @@ pipeline {
         stage('执行接口测试') {
             steps {
                 echo '使用虚拟环境的 Pytest 执行测试用例...'
-                // 给路径加引号，防止路径中潜在的空格问题
+                // 给路径加单引号，防止路径中可能出现的空格或特殊字符
                 powershell "./venv/Scripts/pytest --alluredir='${ALLURE_RESULTS}' --clean-alluredir"
             }
         }
@@ -49,6 +48,7 @@ pipeline {
             steps {
                 echo '通过 Allure 生成可视化 HTML 报告...'
                 script {
+                    // 这是 Jenkins 插件步骤，保持原样
                     allure includeProperties: false, jdk: '', results: [[path: "${ALLURE_RESULTS}"]]
                 }
             }
@@ -58,12 +58,13 @@ pipeline {
     post {
         always {
             echo '归档测试日志...'
-            archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true [cite: 6]
+            // 修复了之前导致报错的引用标记问题
+            archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
         }
 
         failure {
             echo '测试失败，触发钉钉通知...'
-            // 确保即使在失败时也尝试使用虚拟环境运行脚本
+            // 使用虚拟环境运行钉钉脚本，确保依赖包可用
             powershell "./venv/Scripts/python common/dingRobot.py"
         }
     }
