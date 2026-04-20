@@ -5,7 +5,7 @@
     </parameter>
     <parameter>
         <key>python version</key>
-        <value>3.11.9</value>
+        <value>3.11</value>
     </parameter>
     <parameter>
         <key>allure version</key>
