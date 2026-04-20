@@ -1,0 +1,68 @@
+pipeline {
+    agent any
+
+    environment {
+        // 设置 Python 环境变量，确保版本符合项目要求 (3.11)
+        PYTHON_PATH = "python3"
+        // 设置报告和日志的路径，对应项目中的 report/ 和 logs/ 目录
+        ALLURE_RESULTS = "report/temp"
+        ALLURE_REPORT = "report/html"
+    }
+
+    stages {
+        stage('环境检查与准备') {
+            steps {
+                echo '检查 Python 环境...'
+                sh "${PYTHON_PATH} --version"
+                // 清理之前的 extract.yaml 数据，保证测试环境纯净
+                echo '清空临时数据文件 extract.yaml...'
+                sh "python3 -c 'import yaml; open(\"extract.yaml\", \"w\").close()'"
+            }
+        }
+
+        stage('安装依赖') {
+            steps {
+                echo '从 requirements.txt 安装项目依赖...'
+                // 假设你有 requirements.txt，包含 requests, pytest, allure-pytest, pyyaml, pymysql 等
+                sh "pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple"
+            }
+        }
+
+        stage('执行接口测试') {
+            steps {
+                echo '启动 Pytest 执行测试用例...'
+                // 根据 pytest.ini 配置执行测试，并将结果输出到 report/temp 目录
+                sh "pytest --alluredir=${ALLURE_RESULTS} --clean-alluredir"
+            }
+        }
+
+        stage('生成测试报告') {
+            steps {
+                echo '通过 Allure 生成可视化 HTML 报告...'
+                // 使用 Jenkins 的 Allure 插件生成报告
+                script {
+                    allure includeProperties: false, jdk: '', results: [[path: "${ALLURE_RESULTS}"]]
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo '归档测试日志...'
+            // 归档 logs/ 目录下的日志文件
+            archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
+        }
+
+        failure {
+            echo '测试失败，触发钉钉通知...'
+            // 调用项目中的 dingRobot.py 发送失败告警
+            sh "python3 common/dingRobot.py"
+        }
+
+        success {
+            echo '测试全部通过！'
+            // 也可以配置成功后的通知
+        }
+    }
+}
