@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        // Windows 下通常直接叫 python
+        // Windows 通常直接叫 python
         PYTHON_PATH = "python"
         ALLURE_RESULTS = "report/temp"
     }
