@@ -7,7 +7,7 @@ paramiko
 pymongo
 PyMySQL
 PyQt5
-pytest==8.43
+pytest==8.3.4
 PyYAML
 redis
 requests
