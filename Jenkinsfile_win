@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+
+    environment {
+        // 【修改点 1】Windows 下通常直接叫 python
+        PYTHON_PATH = "python"
+        ALLURE_RESULTS = "report/temp"
+    }
+
+    stages {
+        stage('环境检查与准备') {
+            steps {
+                echo '检查 Python 环境...'
+                // 【修改点 2】所有的 sh 改为 bat
+                bat "${PYTHON_PATH} --version"
+
+                echo '清空临时数据文件 extract.yaml...'
+                // Windows 下清空文件的单行命令稍有不同
+                bat "${PYTHON_PATH} -c \"open('extract.yaml', 'w').close()\""
+            }
+        }
+
+        stage('安装依赖') {
+            steps {
+                echo '从 requirements.txt 安装项目依赖...'
+                bat "${PYTHON_PATH} -m pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple"
+            }
+        }
+
+        stage('执行接口测试') {
+            steps {
+                echo '启动 Pytest 执行测试用例...'
+                bat "${PYTHON_PATH} -m pytest --alluredir=${ALLURE_RESULTS} --clean-alluredir"
+            }
+        }
+
+        stage('生成测试报告') {
+            steps {
+                echo '通过 Allure 生成可视化 HTML 报告...'
+                script {
+                    allure includeProperties: false, jdk: '', results: [[path: "${ALLURE_RESULTS}"]]
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo '归档测试日志...'
+            archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
+        }
+
+        failure {
+            echo '测试失败，触发钉钉通知...'
+            // 【修改点 3】同样改为 bat 和 python
+            bat "${PYTHON_PATH} common/dingRobot.py"
+        }
+    }
+}
